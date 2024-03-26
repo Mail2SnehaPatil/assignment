@@ -1,0 +1,46 @@
+<!-- blog_detail.html -->
+
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Details</title>
+    <style>
+        /* Add your CSS styles here */
+        .blog {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .blog h2 {
+            margin-top: 0;
+        }
+        .blog p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blog Details</h1>
+    {% csrf_token %}
+    {% for blog in blogs %}
+    <div class="blog">
+        <h2>{{ blog.title }}</h2>
+        <p>{{ blog.content }}</p>
+        <p>Author: {{ blog.author.username }}</p>
+        <p>Created at: {{ blog.created_at }}</p>
+        {% if blog.author.username == request.user.username %}
+            <button>Delete</button>
+        {% endif %}
+        <form action="{% url 'delete_blog' %}" method="post">
+            <!-- Hidden input to pass the blog title -->
+            <input type="hidden" name="blog_title" value="{{ blog.title }}">
+            <button type="submit">Delete Blog</button>
+        </form>
+    </div>
+    {% empty %}
+    <p>No blogs available.</p>
+    {% endfor %}
+</body>
+</html>

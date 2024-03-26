@@ -1,0 +1,28 @@
+<!-- myapp/templates/home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Latest News</h1>
+   
+    <ul>
+        {% for article in news_data %}
+            <!-- <li> 
+                <img src="{{ article.urlToImage }}" alt="{{ article.title }}" width="100">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+            </li> -->
+            <li> 
+                <a href="{{ article.url }}">
+                    <img src="{{ article.urlToImage }}" alt="{{ article.title }}" width="100">
+                    {{ article.title }} </a>
+            </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
